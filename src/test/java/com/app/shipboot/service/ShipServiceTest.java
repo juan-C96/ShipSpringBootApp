@@ -171,4 +171,15 @@ public class ShipServiceTest {
 
         assertThrows(ResourceNotFoundException.class, () -> shipService.deleteShip(shipId));
     }
+    
+    //Test for log
+    @Test
+    public void testLogNegativeId() {
+        long negativeId = -1L;
+        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> {
+            shipService.getShipById(negativeId);
+        });
+    
+        assertEquals("Ship not found with id: " + negativeId, exception.getMessage());
+    }
 }

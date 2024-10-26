@@ -3,6 +3,8 @@ package com.app.shipboot.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,7 @@ public class ShipService {
     }
 
     //Get ship by id
+    @Cacheable("ships")
     public Ship getShipById(Long id) {
         return shipRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Ship not found with id: " + id));
@@ -44,6 +47,7 @@ public class ShipService {
     }
 
     // Update ship
+    @CacheEvict(value = "ships", key = "#id")
     public Ship updateShip(Long id, Ship shipDetails) {
         Ship ship = shipRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Ship not found with id " + id));
@@ -57,6 +61,7 @@ public class ShipService {
     }
 
     //Delete a ship by id
+    @CacheEvict(value = "ships", key = "#id")
     public void deleteShip(Long id) {
         Ship ship = shipRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Ship not found with id: " + id));
