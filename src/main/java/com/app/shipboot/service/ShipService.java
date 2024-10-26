@@ -60,4 +60,13 @@ public class ShipService {
 
         return shipRepository.save(ship);
     }
+
+    //Delete a chip by id
+    public void deleteShip(Long id) {
+        Ship ship = shipRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Ship not found with id: " + id));
+    
+        shipRepository.delete(ship);
+    }
+    
 }

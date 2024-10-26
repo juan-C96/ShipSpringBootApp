@@ -1,6 +1,8 @@
 package com.app.shipboot.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,11 +44,6 @@ public class ShipController {
         return shipService.saveShip(ship);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteShip(@PathVariable Long id) {
-        shipService.deleteById(id);
-    }
-
     //Get ships by pageable
     @GetMapping("/ships")
     public Page<Ship> getAllShips(Pageable pageable) {
@@ -54,15 +51,24 @@ public class ShipController {
     }
 
     //Get ships by name
-    @GetMapping("/ships/search")
+    @GetMapping("/search")
     public List<Ship> getShipsByName(@RequestParam String name) {
         return shipService.getShipsByName(name);
     }
 
     //Update a ship
-    @PutMapping("/ships/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Ship> updateShip(@PathVariable Long id, @RequestBody Ship shipDetails) {
         Ship updatedShip = shipService.updateShip(id, shipDetails);
         return ResponseEntity.ok(updatedShip);
+    }
+
+    //delete a ship
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, Boolean>> deleteShip(@PathVariable Long id) {
+        shipService.deleteShip(id);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return ResponseEntity.ok(response);
     }
 }
