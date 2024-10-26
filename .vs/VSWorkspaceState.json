@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\main",
+    "\\src\\main\\java",
+    "\\src\\main\\java\\com",
+    "\\src\\main\\java\\com\\app",
+    "\\src\\main\\java\\com\\app\\shipboot",
+    "\\src\\main\\java\\com\\app\\shipboot\\controller",
+    "\\src\\main\\resources"
+  ],
+  "SelectedNode": "\\src\\main\\java\\com\\app\\shipboot\\ShipbootApplication.java",
+  "PreviewInSolutionExplorer": false
+}
