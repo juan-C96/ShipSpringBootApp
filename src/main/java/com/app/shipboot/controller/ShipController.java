@@ -35,7 +35,7 @@ public class ShipController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Ship> getShipById(@PathVariable Long id) {
+    public Ship getShipById(@PathVariable Long id) {
         return shipService.getShipById(id);
     }
 

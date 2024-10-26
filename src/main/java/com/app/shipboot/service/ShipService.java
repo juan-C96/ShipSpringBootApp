@@ -1,7 +1,6 @@
 package com.app.shipboot.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,18 +23,14 @@ public class ShipService {
     }
 
     //Get ship by id
-    public Optional<Ship> getShipById(Long id) {
-        return shipRepository.findById(id);
+    public Ship getShipById(Long id) {
+        return shipRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Ship not found with id: " + id));
     }
 
     //Save a ship
     public Ship saveShip(Ship ship) {
         return shipRepository.save(ship);
-    }
-
-    //Delete a ship by id
-    public void deleteById(Long id) {
-        shipRepository.deleteById(id);
     }
 
     //Get all pageable ships
@@ -61,12 +56,12 @@ public class ShipService {
         return shipRepository.save(ship);
     }
 
-    //Delete a chip by id
+    //Delete a ship by id
     public void deleteShip(Long id) {
         Ship ship = shipRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Ship not found with id: " + id));
     
-        shipRepository.delete(ship);
+        shipRepository.deleteById(id);
     }
     
 }
